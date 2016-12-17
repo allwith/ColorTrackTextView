@@ -4,4 +4,8 @@
         <attr name="originColor" format="color"/>
         <attr name="changeColor" format="color"/>
     </declare-styleable>
+
+    <declare-styleable name="TrackIndicatorView">
+        <attr name="tabVisibleNums" format="integer"/>
+    </declare-styleable>
 </resources>

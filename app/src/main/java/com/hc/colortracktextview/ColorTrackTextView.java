@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 /**
@@ -27,8 +26,6 @@ public class ColorTrackTextView extends TextView {
 
     // 2. 实现两种朝向 - 当前的朝向  从左到右还是从右到左
     private Direction mDirection = Direction.LEFT_TO_RIGHT;
-
-
 
     /**
      * 2. 实现两种朝向 - 朝向的枚举类型

@@ -6,15 +6,20 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.hc.colortracktextview.indicator.IndicatorAdapter;
+import com.hc.colortracktextview.indicator.TrackIndicatorView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private String[] items = {"直播", "推荐", "视频", "图片", "段子", "精华"};
-    private LinearLayout mIndicatorContainer;// 变成通用的
+    private String[] items = {"直播", "推荐", "视频","段友秀", "图片", "段子", "精华","同城","游戏"};
+    private TrackIndicatorView mIndicatorContainer;// 变成通用的
     private List<ColorTrackTextView> mIndicators;
     private ViewPager mViewPager;
     private String TAG = "ViewPagerActivity";
@@ -25,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mIndicators = new ArrayList<>();
-        mIndicatorContainer = (LinearLayout) findViewById(R.id.indicator_view);
+        mIndicatorContainer = (TrackIndicatorView) findViewById(R.id.indicator_view);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         initIndicator();
         initViewPager();
@@ -61,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 // Log.e("TAG", "position --> " + position + "  positionOffset --> "
                 //         + positionOffset + " positionOffsetPixels --> " + positionOffsetPixels);
 
-                ColorTrackTextView left = mIndicators.get(position);
+               /* ColorTrackTextView left = mIndicators.get(position);
                 left.setDirection(ColorTrackTextView.Direction.RIGHT_TO_LEFT);
                 left.setCurrentProgress(1-positionOffset);
 
@@ -71,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                     right.setCurrentProgress(positionOffset);
                 }catch (Exception e){
                     e.printStackTrace();
-                }
+                }*/
             }
 
             @Override
@@ -90,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
      * 初始化可变色的指示器
      */
     private void initIndicator() {
-        for (int i = 0; i < items.length; i++) {
+        /*for (int i = 0; i < items.length; i++) {
             // 动态添加颜色跟踪的TextView
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -105,6 +110,40 @@ public class MainActivity extends AppCompatActivity {
             mIndicatorContainer.addView(colorTrackTextView);
             // 加入集合
             mIndicators.add(colorTrackTextView);
-        }
+        }*/
+
+        mIndicatorContainer.setAdapter(new IndicatorAdapter() {
+            @Override
+            public int getCount() {
+                return items.length;
+            }
+
+            @Override
+            public View getView(int position, ViewGroup parent) {
+                TextView colorTrackTextView = new TextView(MainActivity.this);
+                // 设置颜色
+                colorTrackTextView.setTextSize(14);
+                colorTrackTextView.setGravity(Gravity.CENTER);
+                // colorTrackTextView.setChangeColor(Color.RED);
+                colorTrackTextView.setText(items[position]);
+                colorTrackTextView.setTextColor(Color.BLACK);
+                int padding = 20;
+                colorTrackTextView.setPadding(padding,padding,padding,padding);
+                //  mIndicators.add(colorTrackTextView);
+                return colorTrackTextView;
+            }
+
+            @Override
+            public void highLighIndicator(View view) {
+                TextView textView = (TextView) view;
+                textView.setTextColor(Color.RED);
+            }
+
+            @Override
+            public void restoreIndicator(View view) {
+                TextView textView = (TextView) view;
+                textView.setTextColor(Color.BLACK);
+            }
+        },mViewPager);
     }
 }

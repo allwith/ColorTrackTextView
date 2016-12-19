@@ -5,7 +5,7 @@ Android ViewPager指示器 颜色可以动态追踪
 
 具体博客地址：http://blog.csdn.net/z240336124/article/details/53611251
 
-具体视频讲解: http://pan.baidu.com/s/1dENNO33
+具体视频讲解：http://pan.baidu.com/s/1dENNO33
 
 个人QQ：240336124
 

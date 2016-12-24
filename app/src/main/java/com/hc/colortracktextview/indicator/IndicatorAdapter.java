@@ -9,19 +9,19 @@ import android.view.ViewGroup;
  * Version 1.0
  * Description: 指示器的Adapter
  */
-public abstract class IndicatorAdapter {
+public abstract class IndicatorAdapter<T extends View> {
     // 获取总共的显示条数
     public abstract int getCount();
     // 根据当前的位置获取View
-    public abstract View getView(int position,ViewGroup parent);
+    public abstract T getView(int position,ViewGroup parent);
 
     // 高亮当前位置
-    public void highLighIndicator(View view){
+    public void highLightIndicator(T view){
 
     }
 
     // 重置当前位置
-    public void restoreIndicator(View view){
+    public void restoreIndicator(T view){
 
     }
 

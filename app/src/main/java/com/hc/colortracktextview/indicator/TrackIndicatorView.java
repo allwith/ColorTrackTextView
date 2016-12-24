@@ -4,11 +4,11 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.HorizontalScrollView;
 
 import com.hc.colortracktextview.R;
+
 
 /**
  * Email 240336124@qq.com
@@ -36,6 +36,8 @@ public class TrackIndicatorView extends HorizontalScrollView implements ViewPage
     private int mCurrentPosition = 0;
     // 8.解决点击抖动的问题
     private boolean mIsExecuteScroll = false;
+
+    private boolean mSmoothScroll;
 
     public TrackIndicatorView(Context context) {
         this(context, null);
@@ -91,7 +93,7 @@ public class TrackIndicatorView extends HorizontalScrollView implements ViewPage
         // int width = getWidth();
 
         // 7.点击或者切换的时候改变状态 默认点亮第一个位置
-        mAdapter.highLighIndicator(mIndicatorGroup.getItemAt(0));
+        mAdapter.highLightIndicator(mIndicatorGroup.getItemAt(0));
     }
 
     /**
@@ -101,7 +103,7 @@ public class TrackIndicatorView extends HorizontalScrollView implements ViewPage
         itemView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                mViewPager.setCurrentItem(position);
+                mViewPager.setCurrentItem(position,mSmoothScroll);
                 // 移动IndicatorView
                 smoothScrollIndicator(position);
                 // 移动下标
@@ -128,6 +130,14 @@ public class TrackIndicatorView extends HorizontalScrollView implements ViewPage
      * 5.设置适配器
      */
     public void setAdapter(IndicatorAdapter adapter, ViewPager viewPager) {
+        setAdapter(adapter,viewPager,true);
+    }
+
+    /**
+     * 5.设置适配器
+     */
+    public void setAdapter(IndicatorAdapter adapter, ViewPager viewPager,boolean smoothScroll) {
+        this.mSmoothScroll= smoothScroll;
         if (viewPager == null) {
             throw new NullPointerException("viewPager is null!");
         }
@@ -217,12 +227,11 @@ public class TrackIndicatorView extends HorizontalScrollView implements ViewPage
 
         mCurrentPosition = position;
         // 将当前位置点亮
-        mAdapter.highLighIndicator(mIndicatorGroup.getItemAt(mCurrentPosition));
+        mAdapter.highLightIndicator(mIndicatorGroup.getItemAt(mCurrentPosition));
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
-        Log.e("TAG","state --> "+state);
         if(state == 1){
             mIsExecuteScroll = true;
         }

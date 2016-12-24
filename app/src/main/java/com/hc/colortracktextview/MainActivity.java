@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void highLighIndicator(View view) {
+            public void highLightIndicator(View view) {
                 TextView textView = (TextView) view;
                 textView.setTextColor(Color.RED);
             }

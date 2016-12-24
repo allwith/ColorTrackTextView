@@ -28,7 +28,7 @@ public class IndicatorGroupView extends FrameLayout {
     private int mItemWidth;
 
     // 底部指示器的LayoutParams
-    FrameLayout.LayoutParams mTrackParams;
+    LayoutParams mTrackParams;
 
     private int mInitLeftMargin;
 
